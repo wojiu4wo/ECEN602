@@ -1,0 +1,32 @@
+@Author Anshika Mehndiratta, Balakumar Jayaraman
+Project : A sample multi-chat server and client application where messages are based on the SBCP(Simple Broadcast Chat Protocol).
+Team Number : 31
+Team Members : Anshika Mehndiratta, Balakumar Jayaraman
+
+The basic functionality of the application is :
+1. Start the server on a particular port, with which multiple clients can connect and chat.
+2. Message sent by one client is broadcasted to all other clients
+3. When a client leaves the chat, server is notified of the same, and it broadcasts it to other clients.
+4. Also, when a client joins, it is notified (ACK or NAK) of its connection to the server.
+
+It consists of 3 source files :
+
+1. ServerForSBCP.c
+2. ClientForSBCP.c
+3. StructForSBCP.h
+
+and a Makefile.
+
+1) ServerForSBCP.c : This is the main server file, where server is started and server accepts multiple client connections with JOIN messages. On receiving a   			     client connection, the server validates the user and accordingly sends an ACK Message if validation is succesful, and NAK if validation is 		     unsuccesful. Further, when server receives a message from a client, it broadcasts the same to all other clients.
+
+2) ClientForSBCP.c : Connects to the server and contains functions for sending the join message, getting and interpreting server messages and taking user input   			     for chatting with clients.
+
+3) StructForSBCP.h : Contains the structures such as HeaderSBCP, AttributeSBCP and MessageSBCP for representing the SBCP message format. 
+
+How to run this application :
+
+1. Unzip the folder.
+2. Open the terminal from the folder.
+3. Run the following command : make -f Makefile
+4. From a terminal, run : ./Server <IP-address> <port no.> <maxConnections>
+5. From multiple terminals, run : ./Client <username> <Server-IP-address> <port no.>

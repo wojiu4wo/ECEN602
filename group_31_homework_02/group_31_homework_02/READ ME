@@ -1,0 +1,36 @@
+@Author Anshika Mehndiratta, Balakumar Jayaraman
+Project : A tftp server built according to IETF RFC 1350 TFTP Protocol Version 2 specifications. The tftp server does not implement WRQ requests from the client.
+Team Number : 31
+Team Members : Anshika Mehndiratta, Balakumar Jayaraman
+
+The basic functionality of the application is :
+1. The tftp server runs on a particular port, and IP to which multiple clients can request for a file transfer.
+2. A RRQ request sent by the client is a request for a file transfer as well as a new connection. It uses UDP which is a connectionless protocol.
+3. A RRQ request can result in server sending a DATA packet(containing 512 bytes of the file) if file exists. 3. A RRQ request sent by the client can result in server sending an ERROR packet if file does not exist, or it exceeds the maximum permissible size.
+4. Also, when bytes read are less than 512, the server sends those many bytes to the client, and client assumes end of file transfer.
+5. On receiving a DATA packet with a particular block no, the client sends an ACK packet with same block no., which is recognized by the server as successful reception of packet.
+
+It consists of 2 source files :
+
+1. TFTPServer.c
+2. udpstruct.h
+
+and a Makefile.
+
+1) TFTPServer.c : This is the main server file, where server is started and server accepts multiple client connections with RRQ   messages. On receiving a client connection, the server validates the filename and accordingly sends a DATA packet if validation is succesful, and ERROR packet if validation is unsuccesful(File not found or File exceeds maximum file size). Further, when server receives a message from a client(ACK or RRQ), it accordingly interprets and sends the next block no. or same block no. DATA packet.
+
+2) udpstruct.h : Contains the structures for RRQ, DATA, ERROR and ACK.
+
+How to run this application :
+
+1. Unzip the folder.
+2. In the folder, place the files : small, medium and large from the urls :
+   http://dl.dropbox.com/u/40878269/small
+   http://dl.dropbox.com/u/40878269/medium
+   http://dl.dropbox.com/u/40878269/large  
+3. Open the terminal from the folder.
+4. Run the following command : make -f Makefile
+5. From a terminal, run : ./Server <IP-address> <port no.>
+6. The server would be up and running.
+7. From a different folder(where the test_script.py is kept), open another terminal with the command :
+python test_script.py <IP-address> <port no.>
